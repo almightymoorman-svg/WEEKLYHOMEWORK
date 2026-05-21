@@ -10,7 +10,7 @@ resource "google_compute_backend_service" "web" {
   port_name             = "http"
   load_balancing_scheme = "EXTERNAL"
   health_checks         = [google_compute_health_check.http.id]
-  timeout_sec           = 30
+  timeout_sec           = 10
 
   backend {
     group           = google_compute_instance_group_manager.web.instance_group
@@ -36,6 +36,7 @@ resource "google_compute_global_forwarding_rule" "web" {
   project               = var.project_id
   target                = google_compute_target_http_proxy.web.id
   ip_address            = google_compute_global_address.lb.id
+  ip_protocol          = "TCP"
   port_range            = "80"
   load_balancing_scheme = "EXTERNAL"
 }

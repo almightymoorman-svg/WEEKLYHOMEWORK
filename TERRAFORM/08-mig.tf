@@ -17,6 +17,6 @@ resource "google_compute_instance_group_manager" "web" {
 
   auto_healing_policies {
     health_check      = google_compute_health_check.http.id
-    initial_delay_sec = 120
+    initial_delay_sec = 300
   }
 }

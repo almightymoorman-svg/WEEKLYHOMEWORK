@@ -10,8 +10,7 @@ resource "google_compute_instance_template" "web" {
     source_image = var.disk_image
     auto_delete  = true
     boot         = true
-    disk_size_gb = 20
-    disk_type    = "pd-standard"
+    disk_size_gb = 100
   }
 
   network_interface {
@@ -21,20 +20,14 @@ resource "google_compute_instance_template" "web" {
     access_config {}
   }
 
-  metadata = {
-    startup-script = <<-EOT
-      #!/bin/bash
-      apt-get update -y
-      apt-get install -y nginx
-      systemctl enable nginx
-      systemctl start nginx
-      INSTANCE=$(curl -sf -H "Metadata-Flavor: Google" \
-        "http://metadata.google.internal/computeMetadata/v1/instance/name" || echo "unknown")
-      echo "<h1>served by: $INSTANCE</h1>" > /var/www/html/index.html
-    EOT
-  }
+   metadata_startup_script = <<-EOT
+    #!/bin/bash
+    dnf update -y
+    dnf install -y httpd
 
-  lifecycle {
-    create_before_destroy = true
-  }
+    systemctl enable httpd
+    systemctl start httpd
+
+    echo "<h1>Week 9 Terraform Web Server</h1>" > /var/www/html/index.html
+  EOT
 }
