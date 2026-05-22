@@ -2,7 +2,6 @@
 
 - `QA.md` - answers to the individual Q&A section
 - `runbook.md` - the anti-drunk engineer runbook
-- `support-ticket.md` - ticket documenting the broken environment incident
 - `terraform/` - terraform to stand up a VPC, firewall, instance template, health check, MIG, and global HTTP LB
 
 ## Resources used
