@@ -34,7 +34,3 @@ terraform init
 terraform plan
 terraform apply
 ```
-
-Note: after apply the LB takes a few minutes to become healthy. The `test_command` output will give you the curl command to verify it's working. If you get a 502 right after apply just wait a bit.
-
-Requires terraform >= 1.5
